@@ -15,21 +15,6 @@ app.use(express.json());
 app.use(userRouter);
 
 
-app.post('/users',async (req,res)=>{
-    const user = new User(req.body);
-    
-
-    try{
-        await user.save();
-        res.status(201).send(user);
-    } catch(e){
-        console.log(e);
-
-        res.status(500).send(e);
-
-    }
-})
-
 app.listen(port,()=>{
     console.log(`App is running up @${port}`);
 })
