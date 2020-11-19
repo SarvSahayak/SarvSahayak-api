@@ -1,5 +1,5 @@
 {
-  "name": "creeping_spiders",
+  "name": "sarvshayak-api",
   "version": "1.0.0",
   "description": "\"A webApp by Creeping_Spiders\"",
   "main": "index.js",
@@ -18,9 +18,18 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarvSahayak/Back-end.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/SarvSahayak/Back-end/issues"
+  },
+  "homepage": "https://github.com/SarvSahayak/Back-end#readme"
 }
