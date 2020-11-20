@@ -41,6 +41,7 @@ const User = mongoose.model('User',{
     },
     mobileNo :{
         type: String,
+        default:0,
         required: true,
         minlength: 10,
         maxlength: 10
