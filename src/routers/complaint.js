@@ -1,4 +1,5 @@
 const express = require('express')
+const { update } = require('../models/complaint')
 const Complaint = require('../models/complaint')
 const router = new express.Router()
 
@@ -9,7 +10,7 @@ router.post('/complaints', async (req, res) => {
         await complaint.save()
         res.status(201).send(complaint)
     } catch (e) {
-        res.status(500).send()
+        res.status(400).send(e)
     }
 })
 
@@ -48,7 +49,12 @@ router.patch('/complaints/:id', async (req, res) => {
     }
 
     try {
-        const complaint = await Complaint.findByIdAndUpdate(req.params.id, req.body, { new: true , runValidators: true})
+
+        const complaint = await Complaint.findById(req.params.id)
+        updates.forEach((update) => complaint[update] = req.body[update])
+        await complaint.save()
+
+        // const complaint = await Complaint.findByIdAndUpdate(req.params.id, req.body, { new: true , runValidators: true})
 
         if (!complaint) {
             return res.status(404).send()
