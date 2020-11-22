@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-const Complaint = mongoose.model('Complaint', {
+const complaintSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true,
@@ -36,6 +36,10 @@ const Complaint = mongoose.model('Complaint', {
         required: true,
         ref: 'User'
     }
+},{
+    timestamps: true
 })
+
+const Complaint = mongoose.model('Complaint', complaintSchema)
 
 module.exports = Complaint

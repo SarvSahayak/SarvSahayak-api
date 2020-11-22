@@ -18,10 +18,28 @@ router.post('/complaints', auth, async (req, res) => {
 })
 
 router.get('/complaints', auth, async (req,res) => {
+    const match = {}
+    const sort = {}
+
+    if (req.query.status) {
+        match.status = req.query.status
+    }
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    }
 
     try {
-        // const complaints = await Complaint.find({ owner: req.user._id})
-        await req.user.populate('complaints').execPopulate()
+        await req.user.populate({
+            path: 'complaints',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip) ,
+                sort
+            }
+    }).execPopulate()
         res.send(req.user.complaints)
     } catch (e) {
         res.status(500).send()
