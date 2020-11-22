@@ -30,6 +30,11 @@ const Complaint = mongoose.model('Complaint', {
     long: {
         type: Number,
         required: true
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 
