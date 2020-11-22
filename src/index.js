@@ -6,6 +6,10 @@ const complaintRouter = require('./routers/complaint')
 const app = express()
 const port = process.env.PORT || 3000
 
+// app.use((req, res) => {
+//     res.status(503).send('Site under mantainance')
+// })
+
 app.use(express.json())
 app.use(userRouter)
 app.use(complaintRouter)

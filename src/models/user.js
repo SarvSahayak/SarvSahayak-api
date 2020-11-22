@@ -1,7 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const validator = require('validator')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const Complaint = require('../models/complaint')
 
-const User = mongoose.model('User',{
+const userSchema = new mongoose.Schema({
 
     name:{
         type: String,
@@ -12,6 +15,7 @@ const User = mongoose.model('User',{
         type: String,
         unique: true,
         required:true,
+        trim: true,
         lowecase: true,
         validate(value) {
             if(!validator.isEmail(value)){
@@ -20,24 +24,15 @@ const User = mongoose.model('User',{
         }
    
     },
-    password :{
+    password: {
         type: String,
         required: true,
-        trim: true,
-        // validate(value){
-        //     if(value.toLowerCase().includes('password')){
-        //         throw new Error('Password canno contain "password')
-        //     }
-        // }
-
-    },
-    title: {
-        type: String,
-        required: true
-    },  
-    location:{
-        type: String,
-        required: true
+        minlenght: 8,
+        validate(value) {
+            if (value.toLowerCase().includes('password')){
+                throw new Error('Password can\'t contain "password"')
+            }
+        }
     },
     mobileNo :{
         type: String,
@@ -45,9 +40,76 @@ const User = mongoose.model('User',{
         minlength: 10,
         maxlength: 10
         
+    }, 
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
+
+})
+
+userSchema.virtual('complaints', {
+    ref: 'Complaint',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({ _id: user._id.toString() }, 'Shhh...')
+
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+
+    return token
+}
+
+userSchema.statics.findByCredentials = async (email, password) => {
+    const user = await User.findOne({ email })
+
+    if (!user){
+        throw new Error('Unable to login')
     }
 
-});
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if (!isMatch) {
+        throw new Error('Unable to login')
+    }
+
+    return user
+}
+
+// Hash the plain password before saving
+userSchema.pre('save', async function (next) {
+    const user = this
+
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+
+    next()
+})
+
+// Delete complaint before user delete
+
+userSchema.pre('remove', async function (next) {
+    const user = this
+    await Complaint.deleteMany({ owner: user._id })
+    next()
+})
+
+const User = mongoose.model('User',userSchema)
 
 
-module.exports= User;
+module.exports= User
