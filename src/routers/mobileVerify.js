@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const fast2sms = require('fast-two-sms')
-const API_KEY = `WsPwgqVbLZdM7BoX6nm5JuEzitYfxk0Qh2v9NC1U4ORHDAc8ra9oQaVwxPOm4iUZbk2A0j8gMpCtdDBW`
+const dotenv = require('dotenv').config();
 
  function generateOTP() { 
           
@@ -14,7 +14,7 @@ const API_KEY = `WsPwgqVbLZdM7BoX6nm5JuEzitYfxk0Qh2v9NC1U4ORHDAc8ra9oQaVwxPOm4iU
 } ;
 
 router.post('/sendMessage',async(req,res)=>{
-    const options = {authorization : API_KEY,message  : `Your Otp is ${generateOTP()}` , numbers : [req.body.number]}
+    const options = {authorization : process.env.API_KEY,message  : `Your Otp is ${generateOTP()}` , numbers : [req.body.number]}
     try{
     
     const responce = await  fast2sms.sendMessage(options);
@@ -23,6 +23,7 @@ router.post('/sendMessage',async(req,res)=>{
     }catch(e){
         
         res.status(404).send(e);
+        console.log(e);
     }
 })
 
