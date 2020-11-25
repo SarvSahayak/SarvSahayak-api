@@ -2,9 +2,8 @@ const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const complaintRouter = require('./routers/complaint')
-
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // app.use((req, res) => {
 //     res.status(503).send('Site under mantainance')

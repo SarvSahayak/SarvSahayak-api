@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    mobileNo :{
+    mobileNo: {
         type: String,
         required: true,
         minlength: 10,
@@ -46,7 +46,10 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar: {
+        type: Buffer
+    }
 
 }, {
     timestamps: true
@@ -63,12 +66,13 @@ userSchema.methods.toJSON = function () {
     const userObject = user.toObject()
     delete userObject.password
     delete userObject.tokens
+    delete userObject.avatar
 
     return userObject
 }
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'Shhh...')
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
 
     user.tokens = user.tokens.concat({ token })
     await user.save()
