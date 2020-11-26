@@ -8,7 +8,5 @@ Variable used:
 ### user side routers
 
 **create a user**
-
 ***url:*** {{url}}/users
-
 ***method:***
