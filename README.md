@@ -7,7 +7,7 @@ Variable used:
 
 ## user side routers
 
-**Note:** *For types of fields visit [User router](./src/models/user.js) and [Complaint router](./src/models/complaint.js)*
+**Note:** *For type of fields visit [User router](./src/models/user.js) and [Complaint router](./src/models/complaint.js)*
 
 ### create user
 
@@ -84,4 +84,44 @@ optional fields:
 
 1. status (default: 0)
 
+```
+
+### read profile
+
+***url:*** {{url}}/users/me
+
+***method:*** GET
+
+```
+required fields:
+
+1. description
+2. category
+3. address
+4. lat
+5. long
+
+optional fields:
+
+1. status (default: 0)
+
+```
+
+### read complaints
+
+***url:*** {{url}}/complaints
+
+***method:*** GET
+
+```
+query params:
+
+1. status
+  eg-> ?status=0
+2. sortBy
+  eg-> ?sortBy:category=desc
+3. limit
+  eg-> ?limit=3
+4. skip
+  eg-> ?skip=4
 ```
