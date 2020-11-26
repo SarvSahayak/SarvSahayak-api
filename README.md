@@ -13,7 +13,19 @@ Variable used:
 
 ***method:*** POST
 
+```
+required fields:
 
+1. name
+2. email
+3. password
+4. mobileNo
+
+optional fields:
+
+1. avatar
+
+```
 
 ### login user
 
@@ -21,6 +33,13 @@ Variable used:
 
 ***method:*** POST
 
+```
+required fields:
+
+1. email
+2. password
+
+```
 
 
 ### logout user
@@ -29,7 +48,9 @@ Variable used:
 
 ***method:*** POST
 
-
+```
+required fields: no need
+```
 
 ### logoutAll user
 
@@ -37,6 +58,9 @@ Variable used:
 
 ***method:*** POST
 
+```
+required fields: no need
+```
 
 
 ### create complaint
@@ -44,3 +68,18 @@ Variable used:
 ***url:*** {{url}}/complaints
 
 ***method:*** POST
+
+```
+required fields:
+
+1. description
+2. category
+3. address
+4. lat
+5. long
+
+optional fields:
+
+1. avatar
+
+```
