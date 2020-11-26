@@ -111,3 +111,80 @@ query params:
 4. skip
   eg-> ?skip=4
 ```
+
+### read complaint
+
+***url:*** {{url}}/complaints/:id
+
+***method:*** GET
+
+
+### update user
+
+***url:*** {{url}}/users/me
+
+***method:*** PATCH
+
+```
+allowed fields:
+
+1. password
+2. mobileNo
+
+optional fields:
+
+1. avatar
+
+```
+
+### update complaint
+
+***url:*** {{url}}/complaints/:id
+
+***method:*** PATCH
+
+```
+allowed fields:
+
+1. description
+2. status
+
+```
+
+### delete user
+
+***url:*** {{url}}/users/me
+
+***method:*** DELETE
+
+
+### delete complaint
+
+***url:*** {{url}}/complaints/:id
+
+***method:*** DELETE
+
+### upload avatar
+
+***url:*** {{url}}/users/me/avatar
+
+***method:*** POST
+
+```
+required fields:
+
+1. avatar
+
+```
+
+### delete avatar
+
+***url:*** {{url}}/users/me/avatar
+
+***method:*** DELETE
+
+### see profile pic
+
+***url:*** {{url}}/users/:id/avatar
+
+***method:*** GET
