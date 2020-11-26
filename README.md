@@ -7,6 +7,40 @@ Variable used:
 
 ### user side routers
 
-**create a user**
+**create user**
+
 ***url:*** {{url}}/users
-***method:***
+
+***method:*** POST
+
+
+
+**login user**
+
+***url:*** {{url}}/users/login
+
+***method:*** POST
+
+
+
+**logout user**
+
+***url:*** {{url}}/users/logout
+
+***method:*** POST
+
+
+
+**logoutAll user**
+
+***url:*** {{url}}/users/logoutAll
+
+***method:*** POST
+
+
+
+**create complaint**
+
+***url:*** {{url}}/complaints
+
+***method:*** POST
