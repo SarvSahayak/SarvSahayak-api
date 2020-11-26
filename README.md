@@ -92,20 +92,6 @@ optional fields:
 
 ***method:*** GET
 
-```
-required fields:
-
-1. description
-2. category
-3. address
-4. lat
-5. long
-
-optional fields:
-
-1. status (default: 0)
-
-```
 
 ### read complaints
 
