@@ -7,6 +7,8 @@ Variable used:
 
 ## user side routers
 
+**Note:** *For types of fields visit [User router](./src/models/user.js) and [Complaint router](./src/models/complaint.js)*
+
 ### create user
 
 ***url:*** {{url}}/users
@@ -80,6 +82,6 @@ required fields:
 
 optional fields:
 
-1. avatar
+1. status (default: 0)
 
 ```
