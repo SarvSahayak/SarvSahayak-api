@@ -7,7 +7,7 @@ Variable used:
 
 ### user side routers
 
-**create user**
+#### create user
 
 ***url:*** {{url}}/users
 
@@ -15,7 +15,7 @@ Variable used:
 
 
 
-**login user**
+#### login user
 
 ***url:*** {{url}}/users/login
 
@@ -23,7 +23,7 @@ Variable used:
 
 
 
-**logout user**
+#### logout user
 
 ***url:*** {{url}}/users/logout
 
@@ -31,7 +31,7 @@ Variable used:
 
 
 
-**logoutAll user**
+#### logoutAll user
 
 ***url:*** {{url}}/users/logoutAll
 
@@ -39,7 +39,7 @@ Variable used:
 
 
 
-**create complaint**
+#### create complaint
 
 ***url:*** {{url}}/complaints
 
