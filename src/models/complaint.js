@@ -15,10 +15,6 @@ const complaintSchema = new mongoose.Schema({
         type: Number,
         default: 00
     }, 
-    time: {
-        type: String
-    
-    },
     address: {
         type: String,
         required: true
@@ -35,6 +31,11 @@ const complaintSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    ngo: {
+        type: mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'Ngo'
     }
 },{
     timestamps: true
