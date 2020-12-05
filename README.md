@@ -188,3 +188,118 @@ required fields:
 ***url:*** {{url}}/users/:id/avatar
 
 ***method:*** GET
+
+
+
+## client side routers
+
+**Note:** *For type of fields visit [Client router](./src/models/ngo.js) and [Complaint router](./src/models/complaint.js)*
+
+### create client
+
+***url:*** {{url}}/ngos
+
+***method:*** POST
+
+```
+required fields:
+
+1. name
+2. email
+3. password
+4. mobileNo
+5. categories
+6. lat
+7. long
+
+optional fields:
+
+1. avatar
+
+```
+
+### login client
+
+***url:*** {{url}}/ngos/login
+
+***method:*** POST
+
+```
+required fields:
+
+1. email
+2. password
+
+```
+
+
+### logout client
+
+***url:*** {{url}}/ngos/logout
+
+***method:*** POST
+
+```
+required fields: no need
+```
+
+### logoutAll client
+
+***url:*** {{url}}/ngos/logoutAll
+
+***method:*** POST
+
+```
+required fields: no need
+```
+
+
+
+### update client
+
+***url:*** {{url}}/ngos/me
+
+***method:*** PATCH
+
+```
+allowed fields:
+
+1. password
+2. mobileNo
+
+optional fields:
+
+1. avatar
+
+```
+
+### delete client
+
+***url:*** {{url}}/ngos/me
+
+***method:*** DELETE
+
+### upload avatar
+
+***url:*** {{url}}/ngos/me/avatar
+
+***method:*** POST
+
+```
+required fields:
+
+1. avatar
+
+```
+
+### delete avatar
+
+***url:*** {{url}}/ngos/me/avatar
+
+***method:*** DELETE
+
+### see profile pic
+
+***url:*** {{url}}/ngos/:id/avatar
+
+***method:*** GET

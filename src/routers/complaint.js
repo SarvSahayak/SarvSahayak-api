@@ -1,23 +1,98 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const Complaint = require('../models/complaint')
 const auth = require('../middleware/auth')
+
 const router = new express.Router()
+const Ngo = require('../models/ngo')
+const { response } = require('express')
 
-router.post('/complaints', auth, async (req, res) => {
-    const complaint = new Complaint({
-        ...req.body,
-        owner: req.user._id
+
+    const distance =  (lat1, lon1, lat2, lon2, unit='K')=> {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		const radlat1 = Math.PI * lat1/180;
+		const radlat2 = Math.PI * lat2/180;
+		const theta = lon1-lon2;
+		const radtheta = Math.PI * theta/180;
+		let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+        if (unit=="K") { dist = dist * 1.609344 }
+       
+		return dist;
+	}
+}
+
+
+
+
+
+router.post('/complaints',auth, async (req, res) => {
+    let ngoId=-1;
+
+    try{
+      await  Ngo.find({categories: req.body.category})
+    .exec((err,response)=>{
+        if(err){
+            return console.log(err);
+        }
+        
+        // console.log(response);
+
+        let currDist = Number.MAX_VALUE;
+        for(let i=0;i<response.length;i++){
+        let dis = distance(response[i].lat,response[i].long,req.body.lat,req.body.long);
+            if(dis<currDist){
+                currDist=dis;
+                ngoId=response[i]._id;
+            }
+        }
+
+        // console.log(currDist);
+      if(currDist>50||ngoId===-1){
+        //   console.log(currDist);
+            return res.status(400).send('No ngo is found')
+        }
+        
+        
+        const complaint =   new  Complaint({
+        
+            ...req.body,
+            owner: req.user._id,
+            ngo:mongoose.Types.ObjectId(ngoId) 
+            
+        })
+        try {
+             complaint.save()
+           
+            res.status(201).send(complaint)
+        } catch (e) {
+            res.status(400).send(e)
+        }
+         
+       
     })
-
-    try {
-        await complaint.save()
-        res.status(201).send(complaint)
-    } catch (e) {
-        res.status(400).send(e)
+    }catch(e){
+        res.status(400).send(e);
     }
+    
+
+
+
+
+        
+
+ 
 })
 
-router.get('/complaints', auth, async (req,res) => {
+router.get('/complaints', auth,async (req,res) => {
     const match = {}
     const sort = {}
 
@@ -44,6 +119,23 @@ router.get('/complaints', auth, async (req,res) => {
     } catch (e) {
         res.status(500).send()
     }
+
+
+    //my work for checking
+    // try{
+    //     const complaints = await Complaint.find({})
+    //     res.send(complaints);
+    // }catch(e){
+    //     res.status(500).send()
+    // }
+
+
+
+
+
+
+
+
 })
 
 router.get('/complaints/:id', auth, async (req,res) => {
