@@ -254,6 +254,26 @@ required fields: no need
 ```
 
 
+### read complaints
+
+***url:*** {{url}}/ngos/complaints
+
+***method:*** GET
+
+```
+query params:
+
+1. status
+  eg-> ?status=0
+2. sortBy
+  eg-> ?sortBy:category=desc
+3. limit
+  eg-> ?limit=3
+4. skip
+  eg-> ?skip=4
+```
+
+
 
 ### update client
 
@@ -272,6 +292,20 @@ optional fields:
 1. avatar
 
 ```
+
+### update complaint
+
+***url:*** {{url}}/ngos/complaints/:id
+
+***method:*** PATCH
+
+```
+allowed fields:
+
+1. status
+
+```
+
 
 ### delete client
 
